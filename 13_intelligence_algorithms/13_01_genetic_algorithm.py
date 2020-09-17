@@ -27,7 +27,7 @@ def encode(popular):  # popular应该是float类型的列表
 
 
 # 解码，即适应度函数。通过基因，即染色体得到个体的适应度值
-def decode(popular_gene):
+def decode_and_fitness(popular_gene):
     fitness = []
     for i in range(len(popular_gene)):
         x = (int(popular_gene[i], 2) / 2 ** 18) * 3 - 1
@@ -38,7 +38,7 @@ def decode(popular_gene):
 
 # 选择and交叉。选择用轮牌赌，交叉概率为0.66
 def choice_ex(popular_gene):
-    fitness = decode(popular_gene)
+    fitness = decode_and_fitness(popular_gene)
     sum_fit_value = 0
     for i in range(len(fitness)):
         sum_fit_value += fitness[i]
@@ -107,7 +107,7 @@ if __name__ == '__main__':  # alt+enter
         new_popular_gene = choice_ex(new_popular_gene)  # 选择和交叉
         new_popular_gene = variation(new_popular_gene)  # 变异
         # 取当代所有个体适应度平均值
-        new_fitness = decode(new_popular_gene)
+        new_fitness = decode_and_fitness(new_popular_gene)
         sum_new_fitness = 0
         print(len(new_fitness))
         for j in new_fitness:
